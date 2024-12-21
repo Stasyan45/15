@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .cat-info {
+            margin: 20px auto;
+            max-width: 400px;
+        }
+        .cat-image {
+            max-width: 100%;
+            height: auto;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        .buttons button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Meet the Cats!</h1>
+    <div class="cat-info">
+        <img id="cat-image" class="cat-image" src="" alt="Cat">
+        <ul id="cat-details">
+            <!-- Cat details will be dynamically inserted here -->
+        </ul>
+    </div>
+    <div class="buttons">
+        <button onclick="showCat(0)">Cat 1</button>
+        <button onclick="showCat(1)">Cat 2</button>
+        <button onclick="showCat(2)">Cat 3</button>
+        <button onclick="showCat(3)">Cat 4</button>
+    </div>
+
+    <script>
+        // Cat constructor
+        function Cat(breed, age, name, gender, furColor, photo, isSleeping) {
+            this.breed = breed;
+            this.age = age;
+            this.name = name;
+            this.gender = gender;
+            this.furColor = furColor;
+            this.photo = photo;
+            this.isSleeping = isSleeping;
+
+            this.askForFood = function () {
+                if (this.isSleeping) {
+                    alert(`${this.name} is sleeping and cannot ask for food.`);
+                } else {
+                    alert(`${this.name} is asking for food!`);
+                }
+            };
+
+            this.goToSleep = function () {
+                this.isSleeping = true;
+                alert(`${this.name} is now sleeping.`);
+            };
+
+            this.wakeUp = function () {
+                this.isSleeping = false;
+                alert(`${this.name} has woken up.`);
+            };
+        }
+
+        // Create cat objects
+        const cats = [
+            new Cat("None", 7, "Rizhyk", "Male", "Orange", "1.jpg", false),
+            new Cat("Siamese", 4, "Mimi", "Female", "Cream", "2.jpg", true),
+            new Cat("Maine Coon", 2, "Leo", "Male", "Brown", "3.jpg", false),
+            new Cat("Persian", 3, "Luna", "Female", "White", "4.jpg", true)
+        ];
+
+        // Function to display cat details
+        function showCat(index) {
+            const cat = cats[index];
+            document.getElementById("cat-image").src = cat.photo;
+
+            const details = `
+                <li><strong>Breed:</strong> ${cat.breed}</li>
+                <li><strong>Age:</strong> ${cat.age}</li>
+                <li><strong>Name:</strong> ${cat.name}</li>
+                <li><strong>Gender:</strong> ${cat.gender}</li>
+                <li><strong>Fur Color:</strong> ${cat.furColor}</li>
+                <li><strong>Status:</strong> ${cat.isSleeping ? "Sleeping" : "Awake"}</li>
+            `;
+            document.getElementById("cat-details").innerHTML = details;
+        }
+
+        // Show the first cat by default
+        showCat(0);
+    </script>
+</body>
+</html>
